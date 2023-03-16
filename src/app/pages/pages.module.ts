@@ -3,10 +3,10 @@ import { PagesComponent } from './pages.component';
 import { SharedModule } from '../shared/shared.module';
 import { PagesRoutingModule } from './pages-routing.module';
 
-import { UsersComponent } from './users/users.component';
+import { CalendarComponent } from './calendar/calendar.component';
 
 @NgModule({
   imports: [SharedModule, PagesRoutingModule],
-  declarations: [PagesComponent, UsersComponent],
+  declarations: [PagesComponent, CalendarComponent],
 })
 export class PagesModule {}
