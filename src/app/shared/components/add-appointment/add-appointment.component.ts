@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
-import { FormGroup, Validators, FormControl } from '@angular/forms';
+import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
+import { FormGroup, Validators, FormControl, FormBuilder } from '@angular/forms';
+import { AppointmentService } from 'src/app/services/appointment/appointment.service';
 
 @Component({
   selector: 'app-add-appointment',
@@ -7,17 +8,27 @@ import { FormGroup, Validators, FormControl } from '@angular/forms';
   styleUrls: ['./add-appointment.component.scss'],
 })
 export class AddAppointmentComponent {
-  appointmentForm = new FormGroup({
-    title: new FormControl('', Validators.required),
-    date: new FormControl('', Validators.required),
-    startTime: new FormControl('', Validators.required),
-    endTime: new FormControl('', Validators.required),
-    description: new FormControl(''),
-  });
+  appointmentForm: FormGroup;
 
-  constructor() {}
+  @Input() selectedTime?: string;
+  @Output() timeSelected = new EventEmitter<string>();
+
+  constructor(private appointmentService: AppointmentService) {
+    this.appointmentForm = new FormGroup({
+      title: new FormControl('', Validators.required),
+      date: new FormControl('', Validators.required),
+      startTime: new FormControl('', Validators.required),
+      endTime: new FormControl('', Validators.required),
+      description: new FormControl(),
+    });
+  }
 
   onSubmit() {
-    console.log('ADD');
+    this.appointmentService.setAppointments(this.appointmentForm.value);
+  }
+
+  onTimeSelected(time: string) {
+    this.selectedTime = time;
+    this.appointmentForm.get('startTime')?.setValue(time);
   }
 }

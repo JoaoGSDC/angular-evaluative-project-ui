@@ -15,15 +15,13 @@
 
   <mat-form-field>
     <mat-label>Start time</mat-label>
-    <input matInput [ngxTimepicker]="startTimepicker" formControlName="startTime" required />
-    <ngx-material-timepicker #startTimepicker [stepHour]="1" [stepMinute]="1"></ngx-material-timepicker>
+    <input matInput app-time-picker [formControl]="$any(appointmentForm).controls['startTime']" required />
     <mat-error>Start time is required</mat-error>
   </mat-form-field>
 
   <mat-form-field>
     <mat-label>End time</mat-label>
-    <input matInput [ngxTimepicker]="endTimepicker" formControlName="endTime" required />
-    <ngx-material-timepicker #endTimepicker [stepHour]="1" [stepMinute]="1"></ngx-material-timepicker>
+    <input matInput app-time-picker [formControl]="$any(appointmentForm).controls['endTime']" required />
     <mat-error>End time is required</mat-error>
   </mat-form-field>
 

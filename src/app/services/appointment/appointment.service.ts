@@ -1,12 +1,15 @@
 import { Injectable } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AppointmentService {
+  appointments: BehaviorSubject<any> = new BehaviorSubject(null);
+
   constructor() {}
 
-  getAppointments() {
-    // lógica para buscar compromissos
+  setAppointments(value: any) {
+    this.appointments.next(value);
   }
 }

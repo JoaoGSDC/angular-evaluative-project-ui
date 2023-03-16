@@ -1,5 +1,7 @@
 import { CdkDragEnd } from '@angular/cdk/drag-drop';
 import { Component, Input } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { AppointmentService } from 'src/app/services/appointment/appointment.service';
 
 @Component({
   selector: 'app-calendar-view',
@@ -7,11 +9,23 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./calendar-view.component.scss'],
 })
 export class CalendarViewComponent {
-  @Input() appointments!: any[];
+  appointments: any[] = [];
 
   dates: any[] = [];
 
-  constructor() {}
+  private subscription: Subscription;
+
+  constructor(private appointmentService: AppointmentService) {
+    this.subscription = appointmentService.appointments.subscribe((_value) => {
+      if (_value == null) return;
+
+      this.appointments.push(_value);
+    });
+  }
+
+  ngOnInit() {
+    this.generateDates();
+  }
 
   generateDates() {
     const currentDate = new Date();
@@ -34,6 +48,10 @@ export class CalendarViewComponent {
   }
 
   deleteAppointment(appointment: any) {
-    console.log('Deleted');
+    this.appointments = this.appointments.filter((_appointment) => _appointment !== appointment);
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 }
