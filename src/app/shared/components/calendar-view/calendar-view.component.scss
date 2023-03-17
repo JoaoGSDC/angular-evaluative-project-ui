@@ -55,3 +55,19 @@
 .appointments {
   width: 100%;
 }
+
+table {
+  width: 100%;
+  border-spacing: 0px;
+
+  td:first-child {
+    text-align: center;
+    width: 200px;
+  }
+
+  td {
+    border-bottom: 1px solid #e1e1e1;
+    padding: 8px 0px;
+    height: 42px;
+  }
+}

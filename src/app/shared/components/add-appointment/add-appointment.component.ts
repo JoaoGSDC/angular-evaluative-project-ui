@@ -24,7 +24,12 @@ export class AddAppointmentComponent {
   }
 
   onSubmit() {
-    this.appointmentService.setAppointments(this.appointmentForm.value);
+    const appointment = {
+      ...this.appointmentForm.value,
+      position: 0,
+    };
+
+    this.appointmentService.setAppointments(appointment);
   }
 
   onTimeSelected(time: string) {
